@@ -1,0 +1,15 @@
+.settings
+.project
+.classpath
+target
+logs
+.idea
+*.bak
+*.iml
+out
+gen
+.pmd
+.checkstyle
+*dev.yml
+*.log
+*.lck
