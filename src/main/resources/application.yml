@@ -1,0 +1,28 @@
+server:
+  port: 15646
+
+spring:
+  application:
+    name: test-server
+
+  # 配置redis 连接信息
+  redis:
+    cluster:
+      nodes:
+        - 192.168.2.40:6001
+        - 192.168.2.40:6002
+        - 192.168.2.41:6003
+        - 192.168.2.41:6004
+        - 192.168.2.42:6005
+        - 192.168.2.42:6006
+      max-redirects: 3
+    lettuce:
+      max-active: 1000
+      max-idle: 10
+      max-wait: -1
+      min-idle: 5
+      # 若redis集群重启或其他情况，springboot cluster主动刷新得到最新节点
+      cluster:
+        refresh:
+          period: 60s
+          adaptive: true
