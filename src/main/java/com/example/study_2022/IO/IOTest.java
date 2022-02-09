@@ -19,7 +19,9 @@ public class IOTest {
 
     public static void main(String[] args) {
 //        testAdapterInputStreamReader();
-        testAdapterOutputStreamWriter();
+//        testAdapterOutputStreamWriter();
+//        testFileReaderWriter();
+        testBufferedInputStream();
     }
 
     private static void testStream() {
@@ -55,17 +57,6 @@ public class IOTest {
     private static void testWrite() {
 
         Scanner scanner = new Scanner(System.in);
-
-    }
-
-    private static void test() {
-        try {
-            FileInputStream fileInputStream = new FileInputStream("");
-            DataInputStream dataInputStream = new DataInputStream(new BufferedInputStream(fileInputStream));
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -111,10 +102,72 @@ public class IOTest {
 
     }
 
-    private static void testAdapter() {
-        
+    private static void testFileReaderWriter() {
+        FileReader fileReader = null;
+        char[] chars = new char[1024 * 100];
+        FileWriter fileWriter = null;
+
+        try {
+            fileReader = new FileReader("c.jpg");
+            int n = fileReader.read(chars);
+            fileWriter = new FileWriter("d.jpg");
+            fileWriter.write(chars, 0, n);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != fileWriter) {
+                    fileWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (null != fileReader) {
+                    fileReader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
     }
 
+    private static void testBufferedInputStream() {
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        byte[] bytes = new byte[1024 * 100];
+
+        try {
+            bufferedInputStream = new BufferedInputStream(new FileInputStream("c.jpg"));
+            int n = bufferedInputStream.read(bytes);
+            bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("d.jpg"));
+            bufferedOutputStream.write(bytes, 0, n);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != bufferedOutputStream) {
+                    bufferedOutputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (null != bufferedInputStream) {
+                    bufferedInputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
 
 }
